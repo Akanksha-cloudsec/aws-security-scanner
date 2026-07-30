@@ -10,7 +10,7 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 - <a href="#key-features">Key Features</a>
 - <a href="#architecture-diagram">Architecture Diagram</a>
 - <a href="#repository-structure">Repository Structure</a>
-- <a href="#project-phase">Project Phase</a>
+- <a href="#quick-start-installation">Quick Start & Installation</a>
 - <a href="#result">Result</a>
 - <a href="#security-best-practices">Security Best Practices</a>
 - <a href="#resources">Resources</a>
@@ -86,7 +86,7 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 
 ---
 
-## 🚀 Quick Start & Installation
+<h2><a class="anchor" id="quick-start-installation"></a> 🚀 Quick Start & Installation</h2>
 
 ### 1. Prerequisites
 - **Python 3.8+**
@@ -96,7 +96,7 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 Navigate to the scanner directory and install required Python packages:
 
 ```bash
-cd aws_security_scanner
+git clone https://github.com/Akanksha-cloudsec/aws-security-scanner.git
 pip install -r requirements.txt
 ```
 
@@ -123,17 +123,6 @@ python main.py --region ap-south-1
 python main.py --access-key YOUR_ACCESS_KEY_ID --secret-key YOUR_SECRET_ACCESS_KEY --region ap-south-1
 ```
 
-### Use Environment Variables
-Set your credentials in PowerShell before running:
-
-```powershell
-$env:AWS_ACCESS_KEY_ID="YOUR_ACCESS_KEY_ID"
-$env:AWS_SECRET_ACCESS_KEY="YOUR_SECRET_ACCESS_KEY"
-$env:AWS_DEFAULT_REGION="ap-south-1"
-
-python main.py
-```
-
 ---
 
 ## 📊 Viewing Generated Reports
@@ -145,32 +134,6 @@ Once a scan completes, consolidated reports are saved in `outputs/reports/`:
 3. **JSON Raw Data:** `outputs/reports/security_report.json`
 
 Open `security_report.pdf` or `security_report.html` in any web browser or PDF viewer to review the assessment.
-
----
-
-## ⚙️ Configuration (`config.yaml`)
-
-Customize default regions, thresholds, and scanner toggles in `config.yaml`:
-
-```yaml
-aws:
-  default_region: us-east-1
-  max_retries: 3
-  timeout: 300
-
-scanners:
-  s3:
-    enabled: true
-    check_public_access: true
-    check_encryption: true
-  iam:
-    enabled: true
-    check_mfa: true
-    key_age_threshold_days: 90
-  cloudtrail:
-    enabled: true
-    lookback_days: 90
-```
 
 ---
 
