@@ -146,6 +146,8 @@ Open `security_report.pdf` or `security_report.html` in any web browser or PDF v
 
   [Amazon IAM](https://aws.amazon.com/iam/)
 
+  [Amazon CloudTrail](https://aws.amazon.com/cloudtrail/)
+
 
 
 
