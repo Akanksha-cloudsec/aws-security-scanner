@@ -34,9 +34,6 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
   - Checks KMS encryption status for CloudTrail logs.
   - Audits recent administrative security events (`CreateAccessKey`, `CreateUser`, `AttachUserPolicy`, etc.).
 
-- **🛠️ Integrated Multi-Scanner Suite:**
-  - Seamlessly executes **Prowler** and **ScoutSuite** wrappers for deep compliance auditing.
-
 - **📝 Executive PDF & HTML Reporting:**
   - Calculates an overall **Security Health Score (0–100)**.
   - Categorizes findings by severity: **Critical**, **High**, **Medium**, and **Low**.
@@ -50,40 +47,41 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 
 <h2><a class="anchor" id="architecture-diagram"></a> 🏗️ Architecture Diagram</h2>
 
-![image alt]
+![image alt](https://github.com/Akanksha-cloudsec/aws-security-scanner/blob/0713b84c2163444f7f0802df4ad5020aa7f01b18/Architecture%20Diagram/Architecture%20Diagram.png)
+
+---
 
 ## 📁 Repository Structure
 
 ```text
-AWS_Cloud/
-│
-├── aws_security_scanner/
-│   ├── core/
-│   │   ├── aws_auth.py           # AWS session & credential authentication
-│   │   ├── logger.py             # Logging setup
-│   │   └── report_generator.py   # Consolidated HTML, JSON & PDF report engine
-│   │
-│   ├── scanners/
-│   │   ├── s3_scanner.py          # S3 storage audit module
-│   │   ├── iam_enum.py           # IAM enumeration & MFA audit module
-│   │   ├── cloudtrail_analyzer.py# CloudTrail audit & threat event analyzer
-│   │   ├── prowler_wrapper.py    # Prowler integration wrapper
-│   │   └── scoutsuite_wrapper.py # ScoutSuite integration wrapper
-│   │
-│   ├── templates/
-│   │   └── report_template.html  # Executive PDF/HTML Jinja2 report template
-│   │
-│   ├── outputs/                  # Raw outputs, reports, & logs (ignored in Git)
-│   │   ├── raw/                  # JSON scan outputs
-│   │   ├── reports/              # HTML & PDF security reports
-│   │   └── logs/                 # Scanner log files
-│   │
-│   ├── config.yaml               # Global scanner configuration file
-│   ├── main.py                   # Main CLI entry point
-│   └── requirements.txt          # Python dependencies
-│
-├── .gitignore                    # Prevents output & credential tracking
-└── README.md                     # Project documentation
+
+ aws_security_scanner/
+ ├── core/
+ │   ├── aws_auth.py           # AWS session & credential authentication
+ │   ├── logger.py             # Logging setup
+ │   └── report_generator.py   # Consolidated HTML, JSON & PDF report engine
+ │
+ ├── scanners/
+ │   ├── s3_scanner.py          # S3 storage audit module
+ │   ├── iam_enum.py           # IAM enumeration & MFA audit module
+ │   ├── cloudtrail_analyzer.py# CloudTrail audit & threat event analyzer
+ │   ├── prowler_wrapper.py    # Prowler integration wrapper
+ │   └── scoutsuite_wrapper.py # ScoutSuite integration wrapper
+ │
+ ├── templates/
+ │   └── report_template.html  # Executive PDF/HTML Jinja2 report template
+ │
+ ├── outputs/                  # Raw outputs, reports, & logs (ignored in Git)
+ │   ├── raw/                  # JSON scan outputs
+ │   ├── reports/              # HTML & PDF security reports
+ │   └── logs/                 # Scanner log files
+ │
+ ├── config.yaml               # Global scanner configuration file
+ ├── main.py                   # Main CLI entry point
+ ├── requirements.txt          # Python dependencies
+ ├── .gitignore                    # Prevents output & credential tracking
+ └── README.md                     # Project documentation
+
 ```
 
 ---
