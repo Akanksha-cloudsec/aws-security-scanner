@@ -11,8 +11,8 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 - <a href="#architecture-diagram">Architecture Diagram</a>
 - <a href="#repository-structure">Repository Structure</a>
 - <a href="#quick-start-installation">Quick Start & Installation</a>
-- <a href="#result">Result</a>
-- <a href="#security-best-practices">Security Best Practices</a>
+- <a href="#usage-instructions">Usage Instructions</a>
+- <a href="#viewing-generated-reports">Viewing Generated Reports</a>
 - <a href="#resources">Resources</a>
 
 ---
@@ -102,7 +102,7 @@ pip install -r requirements.txt
 
 ---
 
-## 💻 Usage Instructions
+<h2><a class="anchor" id="usage-instructions"></a> 💻 Usage Instructions</h2>
 
 ### Basic Run (Default Region: `us-east-1`)
 Run the scanner entry point. If credentials are not found in environment variables, you will be prompted securely:
@@ -125,7 +125,7 @@ python main.py --access-key YOUR_ACCESS_KEY_ID --secret-key YOUR_SECRET_ACCESS_K
 
 ---
 
-## 📊 Viewing Generated Reports
+<h2><a class="anchor" id="viewing-generated-reports"></a> 📊 Viewing Generated Reports</h2>
 
 Once a scan completes, consolidated reports are saved in `outputs/reports/`:
 
@@ -135,5 +135,19 @@ Once a scan completes, consolidated reports are saved in `outputs/reports/`:
   
 Open `security_report.pdf` or `security_report.html` in any web browser or PDF viewer to review the assessment.
    - Sample
+     
+     ![image alt](https://github.com/Akanksha-cloudsec/aws-security-scanner/blob/43933536eef9201ddcc92eb401f1e58d39de6a4a/Images/Report.jpg)
 
 ---
+
+<h2><a class="anchor" id="resources"></a> 📚 Resources</h2>
+
+  [Amazon S3](https://aws.amazon.com/s3/)
+
+  [Amazon IAM](https://aws.amazon.com/iam/)
+
+
+
+
+
+
