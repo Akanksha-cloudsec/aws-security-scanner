@@ -9,7 +9,7 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 ## 📋 Table of Contents
 - <a href="#key-features">Key Features</a>
 - <a href="#architecture-diagram">Architecture Diagram</a>
-- <a href="#tech-stack">Tech Stack</a>
+- <a href="#repository-structure">Repository Structure</a>
 - <a href="#project-phase">Project Phase</a>
 - <a href="#result">Result</a>
 - <a href="#security-best-practices">Security Best Practices</a>
@@ -51,7 +51,7 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 
 ---
 
-## 📁 Repository Structure
+<h2><a class="anchor" id="repository-structure"></a> 📁 Repository Structure</h2>
 
 ```text
 
