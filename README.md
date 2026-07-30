@@ -132,11 +132,8 @@ Once a scan completes, consolidated reports are saved in `outputs/reports/`:
 1. **PDF Executive Report:** `outputs/reports/security_report.pdf`
 2. **HTML Web Report:** `outputs/reports/security_report.html`
 3. **JSON Raw Data:** `outputs/reports/security_report.json`
-
+  
 Open `security_report.pdf` or `security_report.html` in any web browser or PDF viewer to review the assessment.
+   - Sample
 
 ---
-
-## 🛡️ License & Disclaimer
-
-This tool is designed for authorized security assessments, compliance audits, and posture management. Ensure you have proper authorization before running scans against AWS accounts.
