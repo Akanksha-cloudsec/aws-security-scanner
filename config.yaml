@@ -1,0 +1,44 @@
+# AWS Security Scanner Configuration
+
+aws:
+  default_region: us-east-1
+  max_retries: 3
+  timeout: 300
+
+scanners:
+  s3:
+    enabled: true
+    check_public_access: true
+    check_encryption: true
+    check_versioning: true
+
+  iam:
+    enabled: true
+    check_mfa: true
+    check_privileged_access: true
+    key_age_threshold_days: 90
+
+  cloudtrail:
+    enabled: true
+    lookback_days: 90
+    check_multi_region: true
+    check_log_validation: true
+
+  prowler:
+    enabled: true
+    timeout_seconds: 3600
+
+  scoutsuite:
+    enabled: false
+    timeout_seconds: 3600
+
+  pacu:
+    enabled: false
+    timeout_seconds: 1800
+
+reporting:
+  formats:
+    - html
+    - json
+  output_directory: ./outputs
+  include_raw_outputs: true

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS Cloud Security Assessment Report</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 1.2cm;
+            @frame footer {
+                -pdf-frame-content: footerContent;
+                bottom: 0.4cm;
+                margin-left: 1.2cm;
+                margin-right: 1.2cm;
+                height: 0.8cm;
+            }
+        }
+        
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+            line-height: 1.4;
+        }
+
+        /* Header Styling */
+        .header-banner {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 24px 28px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            font-size: 22pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+        }
+
+        .header-subtitle {
+            font-size: 11pt;
+            color: #94a3b8;
+            margin: 0 0 16px 0;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border-top: 1px solid #334155;
+            padding-top: 10px;
+        }
+
+        .meta-table td {
+            font-size: 9pt;
+            color: #cbd5e1;
+            padding: 2px 0;
+        }
+
+        .meta-label {
+            color: #94a3b8;
+            font-weight: bold;
+        }
+
+        /* Executive Dashboard Grid */
+        .dashboard-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+            margin-bottom: 20px;
+        }
+
+        .score-card {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .score-val-green {
+            font-size: 32pt;
+            font-weight: bold;
+            color: #059669;
+            margin: 0;
+        }
+
+        .score-val-yellow {
+            font-size: 32pt;
+            font-weight: bold;
+            color: #d97706;
+            margin: 0;
+        }
+
+        .score-val-red {
+            font-size: 32pt;
+            font-weight: bold;
+            color: #dc2626;
+            margin: 0;
+        }
+
+        .card-title {
+            font-size: 9pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .stat-card {
+            background-color: #f8fafc;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            border-top: 4px solid #cbd5e1;
+        }
+
+        .stat-card-critical { border-top-color: #dc2626; }
+        .stat-card-high { border-top-color: #ea580c; }
+        .stat-card-medium { border-top-color: #d97706; }
+        .stat-card-low { border-top-color: #0284c7; }
+
+        .stat-number {
+            font-size: 20pt;
+            font-weight: bold;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        /* Section Styling */
+        .section-block {
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #0f172a;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 10pt;
+        }
+
+        .data-table th {
+            background-color: #1e293b;
+            color: #ffffff;
+            text-align: left;
+            padding: 8px 10px;
+            font-size: 9pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .data-table tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 8pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .badge-critical { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+        .badge-high { background-color: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
+        .badge-medium { background-color: #fef3c7; color: #92400e; border: 1px solid #facc15; }
+        .badge-low { background-color: #e0f2fe; color: #075985; border: 1px solid #38bdf8; }
+        .badge-pass { background-color: #d1fae5; color: #065f46; border: 1px solid #34d399; }
+        .badge-fail { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+
+        /* Recommendation Boxes */
+        .rec-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-radius: 0 6px 6px 0;
+            font-size: 10pt;
+        }
+
+        .rec-title {
+            font-weight: bold;
+            color: #0369a1;
+            margin-bottom: 2px;
+        }
+
+        .rec-desc {
+            color: #334155;
+        }
+
+        .empty-state {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 16px;
+            text-align: center;
+            color: #64748b;
+            border-radius: 6px;
+            font-size: 10pt;
+        }
+
+        /* Footer Frame */
+        #footerContent {
+            text-align: right;
+            font-size: 8pt;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div class="header-title">AWS SECURITY ASSESSMENT</div>
+        <div class="header-subtitle">Executive Compliance & Security Audit Report</div>
+        
+        <table class="meta-table">
+            <tr>
+                <td width="33%"><span class="meta-label">Generated:</span> {{ timestamp }}</td>
+                <td width="33%"><span class="meta-label">Target Region:</span> {{ region }}</td>
+                <td width="34%" style="text-align: right;"><span class="meta-label">Total Findings:</span> {{ total_issues }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Executive Summary Dashboard -->
+    <div class="section-block">
+        <div class="section-header">Executive Summary</div>
+        
+        <table class="dashboard-table">
+            <tr>
+                <!-- Overall Score Card -->
+                <td width="32%">
+                    <div class="score-card">
+                        {% if overall_score >= 80 %}
+                            <div class="score-val-green">{{ overall_score }}</div>
+                        {% elif overall_score >= 50 %}
+                            <div class="score-val-yellow">{{ overall_score }}</div>
+                        {% else %}
+                            <div class="score-val-red">{{ overall_score }}</div>
+                        {% endif %}
+                        <div class="card-title">Security Health Score</div>
+                    </div>
+                </td>
+                
+                <!-- Severity Breakdown Cards -->
+                <td width="68%">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 6px;">
+                        <tr>
+                            <td width="25%">
+                                <div class="stat-card stat-card-critical">
+                                    <div class="stat-number">{{ critical_count }}</div>
+                                    <div class="card-title">Critical</div>
+                                </div>
+                            </td>
+                            <td width="25%">
+                                <div class="stat-card stat-card-high">
+                                    <div class="stat-number">{{ high_count }}</div>
+                                    <div class="card-title">High</div>
+                                </div>
+                            </td>
+                            <td width="25%">
+                                <div class="stat-card stat-card-medium">
+                                    <div class="stat-number">{{ medium_count }}</div>
+                                    <div class="card-title">Medium</div>
+                                </div>
+                            </td>
+                            <td width="25%">
+                                <div class="stat-card stat-card-low">
+                                    <div class="stat-number">{{ low_count }}</div>
+                                    <div class="card-title">Low</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- S3 Storage Findings -->
+    <div class="section-block">
+        <div class="section-header">S3 Storage Audit</div>
+        {% if s3_findings and s3_findings.get('buckets') %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="35%">Bucket Name</th>
+                        <th width="20%">Public Access</th>
+                        <th width="20%">Encryption</th>
+                        <th width="25%">Status / Issues</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bucket in s3_findings.get('buckets', []) %}
+                        <tr>
+                            <td><strong>{{ bucket.name }}</strong></td>
+                            <td>
+                                {% if bucket.public_access %}
+                                    <span class="badge badge-fail">Public</span>
+                                {% else %}
+                                    <span class="badge badge-pass">Blocked</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if bucket.encrypted %}
+                                    <span class="badge badge-pass">Encrypted</span>
+                                {% else %}
+                                    <span class="badge badge-fail">Unencrypted</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if bucket.issues %}
+                                    <span class="badge badge-high">{{ bucket.issues | join(', ') }}</span>
+                                {% else %}
+                                    <span class="badge badge-pass">Secure</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty-state">No S3 storage issues or buckets identified during scan.</div>
+        {% endif %}
+    </div>
+
+    <!-- IAM Identity Findings -->
+    <div class="section-block">
+        <div class="section-header">IAM Identity & Access Control</div>
+        {% if iam_findings and iam_findings.get('users') %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="30%">User / Identity</th>
+                        <th width="20%">MFA Protection</th>
+                        <th width="25%">Privileged Role</th>
+                        <th width="25%">Audit Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in iam_findings.get('users', []) %}
+                        <tr>
+                            <td><strong>{{ user.username }}</strong></td>
+                            <td>
+                                {% if user.mfa_active or 'MFA not enabled' not in user.issues %}
+                                    <span class="badge badge-pass">MFA Active</span>
+                                {% else %}
+                                    <span class="badge badge-critical">No MFA</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.has_privileged_access %}
+                                    <span class="badge badge-high">Administrator</span>
+                                {% else %}
+                                    <span class="badge badge-low">Standard User</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.issues %}
+                                    <span class="badge badge-medium">{{ user.issues | join(', ') }}</span>
+                                {% else %}
+                                    <span class="badge badge-pass">Compliant</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty-state">No IAM users or identity risks identified during scan.</div>
+        {% endif %}
+    </div>
+
+    <!-- CloudTrail Audit Findings -->
+    <div class="section-block">
+        <div class="section-header">CloudTrail & Threat Event Analysis</div>
+        {% if cloudtrail_findings %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="40%">Check Item</th>
+                        <th width="20%">Result</th>
+                        <th width="40%">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CloudTrail Active & Logging</td>
+                        <td>
+                            {% if cloudtrail_findings.get('best_practices_check', {}).get('has_trails') %}
+                                <span class="badge badge-pass">Active</span>
+                            {% else %}
+                                <span class="badge badge-fail">Disabled</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ cloudtrail_findings.get('best_practices_check', {}).get('total_trails', 0) }} active trails configured</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Region Compliance</td>
+                        <td>
+                            {% if cloudtrail_findings.get('best_practices_check', {}).get('multi_region', {}).get('has_multi_region') %}
+                                <span class="badge badge-pass">Enabled</span>
+                            {% else %}
+                                <span class="badge badge-high">Single Region</span>
+                            {% endif %}
+                        </td>
+                        <td>Multi-region logging protects all AWS regions</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if cloudtrail_findings.get('issues') %}
+                <div style="margin-top: 10px;">
+                    <strong>Identified CloudTrail Deficiencies:</strong>
+                    <ul>
+                        {% for issue in cloudtrail_findings.get('issues', []) %}
+                            <li style="color: #991b1b; font-size: 9pt; margin-bottom: 4px;">{{ issue }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="empty-state">CloudTrail audit logs not available.</div>
+        {% endif %}
+    </div>
+
+    <!-- Recommendations & Remediation Plan -->
+    <div class="section-block">
+        <div class="section-header">Remediation Roadmap & Action Items</div>
+        {% if all_recommendations %}
+            {% for rec in all_recommendations %}
+                <div class="rec-box">
+                    <div class="rec-title">✓ Recommendation #{{ loop.index }}</div>
+                    <div class="rec-desc">{{ rec }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">No specific remediation actions required. System is compliant.</div>
+        {% endif %}
+    </div>
+
+    <!-- Footer Content for Pisa -->
+    <div id="footerContent">
+        AWS Security Scanner | Page <pdf:pagenumber/> of <pdf:pagecount/>
+    </div>
+
+</body>
+</html>
