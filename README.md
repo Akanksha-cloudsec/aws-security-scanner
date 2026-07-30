@@ -6,7 +6,18 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
 
 ---
 
-## 🌟 Key Features
+## 📋 Table of Contents
+- <a href="#key-features">Key Features</a>
+- <a href="#architecture-diagram">Architecture Diagram</a>
+- <a href="#tech-stack">Tech Stack</a>
+- <a href="#project-phase">Project Phase</a>
+- <a href="#result">Result</a>
+- <a href="#security-best-practices">Security Best Practices</a>
+- <a href="#resources">Resources</a>
+
+---
+
+<h2><a class="anchor" id="key-features"></a> 🌟 Key Features</h2>
 
 - **📦 S3 Bucket Security Scanner:**
   - Identifies public bucket policies and ACLs.
@@ -36,6 +47,10 @@ The scanner audits core AWS services—including **S3 Buckets**, **IAM Accounts 
   - Raw scan outputs (`outputs/`) are automatically untracked via `.gitignore` to prevent accidental credential or metadata exposure on Git.
 
 ---
+
+<h2><a class="anchor" id="architecture-diagram"></a> 🏗️ Architecture Diagram</h2>
+
+![image alt]
 
 ## 📁 Repository Structure
 
